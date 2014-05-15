@@ -20,7 +20,11 @@
     initZoom: 1.15,
     animationTime: 2000,
     easing: "ease",
-    onZoom: null
+    onZoom: null,
+    beforeZoom: null,
+    afterZoom: null,
+    offsetTop: 0,
+    offsetBottom: 200,
   };  
   
   
@@ -55,19 +59,17 @@
       // Swipe Support
       var debut,
           isTouching = false;
-      if (settings.parallaxOnMobile == true) {
-        $("body").on('touchstart', function() {
-          if (event.touches.length == 1) {
-            debut = event.touches[0].pageY;
-            isTouching = true;
-          }
-        });   
-
-        $("body").on('touchend', function() {
-          isTouching = false;
-          debut = null;
-        })
-      }
+      $("body").on('touchstart', function() {
+        if (event.touches.length == 1) {
+          debut = event.touches[0].pageY;
+          isTouching = true;
+        }
+      });   
+      
+      $("body").on('touchend', function() {
+        isTouching = false;
+        debut = null;
+      })
       
       // function to grab current zoom value
       function getScale(el) {
@@ -95,20 +97,26 @@
         originY = $(document).scrollTop();
         
         // Zoom startes/stops only when object is on screen
-        if (el.is_on_screen($(document).scrollTop())) {      
+        if (el.is_on_screen($(document).scrollTop())) {     
+          if (typeof settings.beforeZoom == 'function') settings.beforeZoom(img.parent(), "in"); 
           img.css({
             "-webkit-transform": "scale(" + settings.zoom + ")",
             "-moz-transform": "scale(" + settings.zoom + ")",
             "-o-transform": "scale(" + settings.zoom + ")",
             "transform": "scale(" + settings.zoom + ")"
+          }).one('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', function(e) {
+            if (typeof settings.afterZoom == 'function') settings.afterZoom(img.parent(), "in"); 
           });
           if (typeof settings.onZoom == 'function') settings.onZoom(img.parent(), "in"); 
         } else {
+          if (typeof settings.beforeZoom == 'function') settings.beforeZoom(img.parent(), "out"); 
           img.css({
             "-webkit-transform": "scale(" + settings.initZoom + ")",
             "-moz-transform": "scale(" + settings.initZoom + ")",
             "-o-transform": "scale(" + settings.initZoom + ")",
             "transform": "scale(" + settings.initZoom + ")"
+          }).one('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', function(e) {
+            if (typeof settings.afterZoom == 'function') settings.afterZoom(img.parent(), "in"); 
           });
           if (typeof settings.onZoom == 'function') settings.onZoom(img.parent(), "out"); 
         }
@@ -130,7 +138,7 @@
         
         bounds.top = this.offset().top;
         bounds.bottom = this.offset().top + this.height();
-        return (!(viewport.bottom < bounds.top || viewport.top > bounds.bottom));
+        return (!(viewport.bottom - settings.offsetBottom < bounds.top || viewport.top - settings.offsetTop > bounds.bottom ));
       };
       
       

@@ -35,11 +35,15 @@ Once you got your images setup, call the function as shown below:
 
 ````javascript
  $(".zoom-images").zoomScroller({
-   initZoom: 1.15,                      // This option let you define the initial scale of the image before it starts animating. 1 is normal size. Increase/decrease this value by decimal points to get the zoom you want. (2 is equivalent to 200% width x height). The default value is 1.15.
-   zoom: 1,                             // This is the option that determine whether to zoom in or out when animating. If you want to zoom in, make sure this value is more than initZoom. If not, then this value must be lower than initZoom. The default value is 1.
-   animationTime: 2000,                 // You an define how long the animation will take place here. The option accept milliseconds. The default value is 2000.
-   easing: "ease",                      // This option accept CSS easing options. This allows you to control the easing of the zoom. The default value is "ease".
-   onZoom: function(el, zoomType) {}    // This is the callback that will let you execute any function during the animation. The default value is null.
+   initZoom: 1.15,                          // This option let you define the initial scale of the image before it starts animating. 1 is normal size. Increase/decrease this value by decimal points to get the zoom you want. (2 is equivalent to 200% width x height). The default value is 1.15.
+   zoom: 1,                                 // This is the option that determine whether to zoom in or out when animating. If you want to zoom in, make sure this value is more than initZoom. If not, then this value must be lower than initZoom. The default value is 1.
+   animationTime: 2000,                     // You an define how long the animation will take place here. The option accept milliseconds. The default value is 2000.
+   easing: "ease",                          // This option accept CSS easing options. This allows you to control the easing of the zoom. The default value is "ease".
+   onZoom: function(el, zoomType) {},       // This is the callback that will let you execute any function during the animation. The default value is null.
+   beforeZoom: function(el, zoomType) {},   // This is the callback that will let you execute any function before the animation. The default value is null.
+   afterZoom: function(el, zoomType) {},    // This is the callback that will let you execute any function after the animation. The default value is null.
+   offsetTop: 0,                            // This allows you to define the top offset before the animation is initiated. The default value 0 so the animation will initiate right when 1 pixel of the element appears from the top of the viewport.
+   offsetBottom: 200,                       // This allows you to define the bottom offset before the animation is initiated. The default value 200 so the animation will initiate only when at least 200 pixels of the element are visible from the bottom of the viewport.
  });
 ````
 With the default setup above, your images will now have a very subtle, smooth zoom out animation as you scroll through the page.
@@ -58,6 +62,28 @@ This callback gets called during the zoom animation. The "element" variable will
       } else {
         ..
       }
+    }
+  });
+````
+
+### beforeZoom(element, zoomType)
+Same variables available as the onZoom callbacks but this will execute before the animation started instead:
+
+````javascript
+  $(".zoom-images").zoomScroller({
+    beforeZoom: function(element, zoomType) {
+      ..
+    }
+  });
+````
+
+### afterZoom(element, zoomType)
+Same variables available as the onZoom callbacks but this will execute after the animation started instead:
+
+````javascript
+  $(".zoom-images").zoomScroller({
+    afterZoom: function(element, zoomType) {
+      ..
     }
   });
 ````
