@@ -70,27 +70,6 @@
         isTouching = false;
         debut = null;
       })
-      
-      // function to grab current zoom value
-      function getScale(el) {
-        var st = window.getComputedStyle(el, null);
-        var tr = st.getPropertyValue("-webkit-transform") ||
-                 st.getPropertyValue("-moz-transform") ||
-                 st.getPropertyValue("-ms-transform") ||
-                 st.getPropertyValue("-o-transform") ||
-                 st.getPropertyValue("transform");
-
-        var values = tr.split('(')[1];
-            values = values.split(')')[0];
-            values = values.split(',');
-        var a = values[0];
-        var b = values[1];
-        var c = values[2];
-        var d = values[3];
-
-        var scale = Math.sqrt(a*a + b*b);
-        return scale;
-      }
 
       // bind on scroll to create zoom effect on the background 
       $(document).on('touchmove mousewheel DOMMouseScroll', function(e, delta) {
