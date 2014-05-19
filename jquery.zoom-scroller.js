@@ -46,14 +46,16 @@
         overflow: "hidden",
         width: "100%",
         height: "100%",
+        position: "absolute",
         "-webkit-transform": "scale(" + settings.initZoom + ")",
         "-moz-transform": "scale(" + settings.initZoom + ")",
         "-o-transform": "scale(" + settings.initZoom + ")",
         "transform": "scale(" + settings.initZoom + ")",
+        "transition": "transform " + settings.animationTime + "ms " + settings.easing,
         "-webkit-transition": "-webkit-transform " + settings.animationTime + "ms " + settings.easing,
         "-moz-transition": "-moz-transform " + settings.animationTime + "ms " + settings.easing,
-        "-ms-transition": "-o-transform " + settings.animationTime + "ms " + settings.easing,
-        "transition": "transform " + settings.animationTime + "ms " + settings.easing
+        "-ms-transition": "-o-transform " + settings.animationTime + "ms " + settings.easing
+        
       });
   
       // Swipe Support
