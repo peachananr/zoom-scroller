@@ -4,11 +4,10 @@ Created by [Pete R.](http://www.thepetedesign.com), Founder of [Travelistly](htt
 
 License: [Attribution-ShareAlike 4.0 International](http://creativecommons.org/licenses/by-sa/4.0/deed.en_US)
 
-[![Zoom Scroller](http://www.thepetedesign.com/images/zoom-scroller_image.jpg "Zoom Scroller")](http://www.thepetedesign.com/demos/zoom-scroller_demo.html)
 
 
 ## Demo
-[View demo](http://www.thepetedesign.com/demos/zoom-scroller_demo.html)
+[View demo](http://peachananr.github.io/zoom-scroller/demo/zoom-scroller_demo.html)
 
 ## Compatibility
 Modern browsers such as Chrome, Firefox, and Safari on both desktop and smartphones have been tested. Not tested on IE.
